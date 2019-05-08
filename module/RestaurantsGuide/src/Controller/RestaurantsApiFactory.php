@@ -18,7 +18,7 @@ class RestaurantsApiFactory implements FactoryInterface
     {
         $config = $container->get("Config");
         if (!isset($config['google-place-api-key']) || !is_string($config['google-place-api-key'])) {
-            throw new \Exception('No "service_name_api" found in the configuration');
+            throw new \Exception('No "google-place-api-key" found in the configuration');
         }
         return new RestaurantsApiController($config['google-place-api-key']);
     }
