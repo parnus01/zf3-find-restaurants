@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>ค้นหาร้านอร่อย</h2>
+            <div id="custom-search-input">
+                <div class="input-group col-md-12">
+                    <input name="keyword" type="text" class="form-control input-lg" placeholder="ex.bangsue"/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg" type="button" id="btn-restaurant-search">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" style="margin-top: 20px">
+            <div class="list-group">
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function search()
+    {
+        let keyword = $('input[name="keyword"]').val() || 'bangsue';
+        $.ajax({
+            url: <?php echo '"'.$this->url('api-restaurants').'"' ; ?>+'?keyword='+keyword,
+            type: "POST",
+            dataType: 'json',
+            data: '',
+            success: function(response){
+                if(response.data.length > 0){
+                    _renderHtmlResult(response.data)
+                }
+            },
+            error:function(){
+                console.error('API::Error')
+            }
+        });
+    }
+    function _renderHtmlResult(data)
+    {
+        $('.list-group').empty();
+        data.forEach(function(place) {
+            let _testObj = $("   <a href=\"#\" class=\"list-group-item\">\n" +
+                "                    <h4 class=\"list-group-item-heading\">"+place.name+"</h4>\n" +
+                "                    <p class=\"list-group-item-text\">"+place.address+"</p>\n" +
+                "                </a>");
+            $('.list-group').append(_testObj);
+        });
+
+    }
+    $(document).ready(function () {
+        $("#btn-restaurant-search").on("click", function(){ search(); });
+    });
+</script>
