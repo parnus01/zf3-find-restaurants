@@ -4,7 +4,7 @@ ZF3 Restuarants Finder Application
 Description
 ==================
 
-Find Restaurants web-application base on ZF3 Framework
+Find Restaurants web-application base on ZF3 Framework & VueJS
 
 ## Installation
 
